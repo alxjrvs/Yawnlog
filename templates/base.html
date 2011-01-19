@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>YawnLog.com<% if @title_text%> &raquo; <%=@title_text%><%end%></title>
+    <title>YawnLog.com{% block title %} &emdash; Social sleep tracking {% endblock %}</title>
     <link rel="icon" type="image/png" href="/images/favicon.png"/>
     <%= stylesheet_link_tag *(['style'] + @stylesheets) %>
     <%= javascript_include_tag *(['jquery'] + @javascripts) %>
@@ -14,20 +14,20 @@
       <div id="header">
         <div class="headwrap">
           <div id="nav">
-            <div id="logo"><%= link_to image_tag ("yawnlog_logo_beta_horz3.png", :alt=>"PJ's looking out for your sleep!"), :controller => "home", :action => "index" %></div>
+            <div id="logo"><a href="/"><img src="/images/yawnlog_logo_beta_horz3.png" alt="PJ's looking out for your sleep!"></a></div>
             <ul>
-              <% if session[:user_id] %>
+              {% if session[:user_id] %}
                 <li>
-                  <%= link_to "Sleep", :controller => "sleeps" %>
+                  <a href="/sleep">Sleep</a>
                 </li>
                 <li>
-                  <%= link_to "Friends", :controller => "friends", :action => "index" %>
+                  <a href="/friends">Friends</a>
                 </li>
                 <li>
-                  <%= link_to "World", :controller => "users", :action => "public_profiles" %>
+                  <a href="/world">World</a>
                 </li>
                 <li>
-                  <%= link_to "Settings", :controller => "users", :action => "edit"%>
+                  <a href="/settings">Settings</a>
                 </li>
               <% if User.find(session[:user_id]).admin %>
                 <li><%= link_to "Admin", :controller => "admin", :action => "index" %></li>
@@ -72,10 +72,10 @@
 
     <div class="footwrap">
         <div id="footer">
-            &copy; 2009 <a href="http://www.hellosilo.com">hellosilo llc.</a> | 
+            &copy; 2010 <a href="http://www.hellosilo.com">hellosilo llc.</a> | 
             <%= link_to "Terms of Service", :controller => "home", :action => "tos"%> |
             <%= link_to "Privacy Policy", :controller => "home", :action => "privacy_policy"%> |
-            <a href="http://github.com/sethwoodworth/yawnlog-prod">GPL code</a>
+            <a href="http://github.com/sethwoodworth/Yawnlog-django">GPL code</a>
         </div>
     </div>
 
