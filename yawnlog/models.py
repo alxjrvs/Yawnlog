@@ -1,6 +1,8 @@
 from django.db import models
 
-class sleep(models.Model):
+# TODO: import more as needed from yawnlog-rails/app/models/
+
+class Sleep(models.Model):
     """
     Sleep stores two times, that go forward in time and don't overlap other sleep times for that user.
     Also doesn't go over 86400 seconds (1 day).
@@ -18,3 +20,20 @@ class sleep(models.Model):
     def __unicode__(self):
         return self.user_owner + '
         return u'%s slept %s hours' %(self.user_owner, self.duration)
+
+class Profile(models.Model):
+    """
+    A one-to-one relationship to the User model, extending data defined for user.
+    """
+    user = models.ForeignKey(User, unique=True)
+    gravatar = models.URLField(blank=True) # Profile glitter
+
+class Friend(models.Model):
+    """
+    I think this is a graph database, with foreign keys to each user who have friended.
+    Request is accepted = F, and notifies user_2. User_1 is the initiator.
+    """
+    # TODO: check if user_2 (not you) exists.
+    user_1 = models.ForeignKey(User)
+    user_2 = models.ForeignKey(User)
+    is_accepted = models.BooleanField()
